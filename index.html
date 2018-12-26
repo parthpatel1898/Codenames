@@ -78,11 +78,8 @@
             <div class="collapse navbar-collapse" id="menu">
                 <ul class="nav navbar-nav">
                     <li><a href="https://en.wikipedia.org/wiki/Codenames_(board_game)">Rules</a></li>
-                    <li id="spymaster-li"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Display the colors of all tiles.">
-                        <a href="#" id="spymaster">Toggle Spymaster</a>
+                    <li id="spymaster-li">
+                        <a href="" id="spymaster">Toggle Spymaster</a>
                     </li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reset Game<span class="caret"></span></a>
@@ -198,8 +195,11 @@
                             } else {
                                 cell.addClass("cell-inrevealed");
                             }
-                            cell.click(function(inner) { return function() { toggle_reveal(inner); }}(idx));
-                            cell.on('touchend', function(inner) { return function() { toggle_reveal(inner); }}(idx));
+                            if (game.isSpying){
+                                cell.click(function(inner) { return function() { toggle_reveal(inner); }}(idx));
+                                cell.on('touchend', function(inner) { return function() { toggle_reveal(inner); }}(idx));
+                            }
+                            
                             var word = $("<span>");
                             word.text(game.words[idx])
                             word.addClass("cell-text")
@@ -220,6 +220,7 @@
             }
             function toggle_spymaster() {
                 game.allrevealed = !game.allrevealed;
+                game.isSpying = !game.allrevealed;
                 render();
             }
             function set_from_seed() {
@@ -256,6 +257,7 @@
                 }
                 game.type = shuffled_array(game.type);
                 game.revealed = [];
+                game.isSpying = false;
                 for (var idx = 0; idx < game.num_rows * game.num_cols; idx += 1) { game.revealed.push(0); }
                 game.words = shuffled_array(allwords).slice(0, total);
                 render();
