@@ -198,7 +198,7 @@
                             cell.on('touchend', function(inner) { return function() { toggle_reveal(inner); }}(idx));
                             var word = $("<span>");
 
-                            word.text(game.words[idx])
+                            word.text(game.words[idx].toUpperCase())
                             word.addClass("cell-text")
                             cell.append(word);
                             row.append(cell);
@@ -282,10 +282,8 @@
                 if (event) {
                     lang = $(event.toElement).attr("data-language");
                 }
-                console.log(lang);
                 Math.seedrandom();
                 seed = getRandomInt(0, 1000);
-                console.log(seed)
                 seed_str = lang + "-" + int_to_string(seed);
                 $('#seed').val(seed_str);
                 set_from_seed();
