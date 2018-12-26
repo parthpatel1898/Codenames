@@ -7,6 +7,8 @@
         <style>
             body {
                 padding-top: 70px;
+                background: url("https://www.publicdomainpictures.net/pictures/210000/nahled/wall-background-1481542063jfv.jpg");
+                background-size: contain;
             }
             .cards {
                 vertical-align: middle;
@@ -37,23 +39,26 @@
                 cursor: auto;
             }
             .cell-red {
-                background: #FFCCCC;
+                background: #e74c3c;
+                color: white;
             }
             .cell-blue {
-                background: #99CCFF;
+                background: #2980b9;
+                color: white;
             }
             .cell-neutral {
-                background: #eeeeee;
+                background: #bfbfbf;
+/*                color: white;*/
             }
             .cell-end {
                 background: black;
                 color: white;
             }
             .red-stats {
-                color: red;
+                color: #e74c3c;
             }
             .blue-stats {
-                color: blue;
+                color: #2980b9;
             }
             .cell-strike {
                 opacity: 0.2;
@@ -98,11 +103,11 @@
                   </div>
                 </form>
                     <p class="navbar-text navbar-right"
-                       style="color:red">
+                       style="color:#e74c3c">
                        Red left: <span id="red-left"></span>
                     </p>
                     <p class="navbar-text navbar-right"
-                       style="color:blue">
+                       style="color:#2980b9">
                        Blue left: <span id="blue-left"></span>
                     </p>
             </div>
