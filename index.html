@@ -69,6 +69,13 @@
                     font-weight: bold;
                 }
             }
+            
+            .modal-title{
+                padding: 25px;
+                font-size: 3em;
+                text-align: center;
+                color: red;
+            }
         </style>
     </head>
     <body>
@@ -200,8 +207,13 @@
                             } else {
                                 cell.addClass("cell-inrevealed");
                             }
-                            cell.dblclick(function(inner) { return function() { toggle_reveal(inner); }}(idx));
-                            cell.on('touchend', function(inner) { return function() { toggle_reveal(inner); }}(idx));
+                            cell.click(function(inner) { return function() { 
+                                toggle_reveal(inner);
+                            }}(idx));
+                            cell.on('touchend', function(inner) { return function() { 
+                                toggle_reveal(inner);
+                                
+                            }}(idx));
                             var word = $("<span>");
 
                             word.text(game.words[idx].toUpperCase())
@@ -217,9 +229,25 @@
                     $('#blue-left').text(getRemaining("b"));
                 }
                 sessionStorage.setItem("game", JSON.stringify(game));
+                if (getRemaining("r") == 0){
+                    document.getElementById('win-team').innerHTML = "Red Won!";
+                    document.getElementById('win-team').style.color = "#e74c3c";
+                    $("#myModal").modal();
+                }
+                else if (getRemaining("b") == 0){
+                    document.getElementById('win-team').innerHTML = "Blue Won!";
+                    document.getElementById('win-team').style.color = "#2980b9";
+                    $("#myModal").modal();
+                } 
+                
             }
 
             function toggle_reveal(idx) {
+                if (game.type[idx] === "e" && !game.revealed[idx]) {
+                    document.getElementById('win-team').innerHTML = "GAME OVER!";
+                    document.getElementById('win-team').style.color = "#000";
+                    $("#myModal").modal();
+                }
                 game.revealed[idx] = !game.revealed[idx];
                 render();
             }
@@ -314,5 +342,19 @@
                 }
             });
         </script>
+        
+        
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <h4 id="win-team" class="modal-title">RED WON!</h4>
+            </div>
+
+          </div>
+        </div>
+        
+        
     </body>
 </html>
